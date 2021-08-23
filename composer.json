@@ -1,0 +1,21 @@
+{
+    "name": "booellean/apa-formatter",
+    "description": "A set of functions that will build a publication into an rmatted html",
+    "type": "library",
+    "require-dev": {
+        "orchestra/testbench": "6.0"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Booellean\\ApaFormatter\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Elliot Forst",
+            "email": "epope@uw.edu"
+        }
+    ],
+    "minimum-stability": "stable"
+}
