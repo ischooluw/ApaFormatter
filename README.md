@@ -48,36 +48,36 @@ A Publication is an array passed. Not every publication will have the following 
         $pub = [
             'authors' => [
                 [
-                    'last_name' => 'Fakenamington',
-                    'first_name' => 'Henry',
+                    'last_name' => 'Isaka',
+                    'first_name' => 'Kotaro',
                     'middle_name' => ''
                 ],
                 [
-                    'last_name' => 'Trefoil',
-                    'first_name' => 'Threelaced',
-                    'middle_name' => 'Thirds'
+                    'last_name' => 'Hayashi',
+                    'first_name' => 'Tamio',
+                    'middle_name' => ''
                 ]
             ],
             'conf_city_state' => 'New York, NY',
             'editors' => [
                 [
-                    'last_name' => 'Branheart',
-                    'first_name' => 'Corey',
+                    'last_name' => 'Oohata',
+                    'first_name' => 'Eisuke',
                     'middle_name' => ''
                 ]
             ],
             'issue' => 6,
-            'page_number' => '67',
-            'pub_city_state' => '',
-            'publication' => 'The Newsiest News Story',
-            'publisher' => 'Coming Around Publishing',
+            'page_number' => '320',
+            'pub_city_state' => 'New York, NY',
+            'publication' => 'Fisshū Sutōrī',
+            'publisher' => 'New York Asian Film Festival',
             'status' => 'Published',
-            'title' => 'A Very Interesting Life',
-            'title_secondary' => 'An exploration of what we are an what we\'ll be',
-            'type' => 'Journal',
+            'title' => 'Fish Story',
+            'title_secondary' => 'The Story of My Life if My Life Were a Fish',
+            'type' => 'Movie',
             'url' => 'https://en.wikipedia.org/wiki/Fish_Story_(film)',
             'volume' => 1,
-            'year_published' => 2020,
+            'year_published' => 2009,
 ```
 
 Note: Unfortunately, with our limited information, this trait does not support fields for a Publisher Platform or DOI:DOI Number
