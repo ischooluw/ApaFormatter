@@ -22,7 +22,7 @@ trait ApaFormatterTrait {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    protected function apaFormatVideoGame($pub){
+    public function apaFormatVideoGame($pub){
         // Get Start Title
         $citation = $this->apaStructureAuthors($pub['authors']);
 
@@ -53,7 +53,7 @@ trait ApaFormatterTrait {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    protected function apaFormatForeword($pub){
+    public function apaFormatForeword($pub){
         // Get Start Title
         $citation = $this->apaStructureAuthors($pub['authors']);
 
@@ -99,7 +99,7 @@ trait ApaFormatterTrait {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    protected function apaFormatReport($pub){
+    public function apaFormatReport($pub){
         // Get Start Title
         $citation = $this->apaStructureAuthors($pub['authors']);
 
@@ -147,12 +147,11 @@ trait ApaFormatterTrait {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    protected function apaFormatSoftware($pub){
+    public function apaFormatSoftware($pub){
         // Get Start Title
         $citation = $this->apaStructureAuthors($pub['authors']);
 
         // & Editors...,
-        // TODO: test
         if(count($pub['editors']) > 0) $citation .= '& ' . $this->apaGetEditors($pub['editors']);
 
         // (year). App Title [software_type].
@@ -184,7 +183,7 @@ trait ApaFormatterTrait {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    protected function apaFormatBookReview($pub){
+    public function apaFormatBookReview($pub){
         // Get Start Title
         $citation = $this->apaStructureAuthors($pub['authors']);
 
@@ -195,7 +194,7 @@ trait ApaFormatterTrait {
         $citation .= $this->apaGetSecondaryTitle($pub['title_secondary']);
 
         // [review_type of \i Book Title, by BookAuthorLastname, F.M.].
-        $citation .= ' [' . $pub['type'] . ' of <em>' . $pub['title'] . '</em>' . ($pub['editors'] != false && $pub['editors'] !== '' ? ' by ' . $pub['editors'] : '') . '].';
+        $citation .= ' [' . $pub['type'] . ' of <em>' . $pub['title'] . '</em>' . ($pub['editors'] != false && $pub['editors'] !== '' && count($pub['editors']) > 0 ? ' by ' . $this->apaGetEditors($pub['editors']) : '') . '].';
 
         // Publication Name,
         $citation .= ($pub['publisher'] != false && $pub['publisher'] !== '' ? ' ' . $pub['publisher'] . ',' : '');
@@ -222,7 +221,7 @@ trait ApaFormatterTrait {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    protected function apaFormatBookEntry($pub){
+    public function apaFormatBookEntry($pub){
         // Get Start Title
         $citation = $this->apaStructureAuthors($pub['authors']);
 
@@ -325,11 +324,14 @@ trait ApaFormatterTrait {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    protected function apaFormatBookChapter($pub){
+    public function apaFormatBookChapter($pub){
         // If there are no authors, show editors
         // if(count($pub['authors']) < 1) $citation .= $this->apaGetEditors($pub['editors']);
         if(count($pub['authors']) < 1){
             $citation = $this->apaGetEditors($pub['editors']). ' ';
+        }else{
+            // Get Start Title
+            $citation = $this->apaStructureAuthors($pub['authors']);
         }
 
         // (year).
@@ -397,7 +399,7 @@ trait ApaFormatterTrait {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    protected function apaFormatConferencePaper($pub){
+    public function apaFormatConferencePaper($pub){
         // Get Start Title
         $citation = $this->apaStructureAuthors($pub['authors']);
 
@@ -445,7 +447,7 @@ trait ApaFormatterTrait {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    protected function apaFormatWebProject($pub){
+    public function apaFormatWebProject($pub){
         // Get Start Title
         $citation = $this->apaStructureAuthors($pub['authors']);
 
@@ -497,7 +499,7 @@ trait ApaFormatterTrait {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    protected function apaFormatDissertationOrThesis($pub){
+    public function apaFormatDissertationOrThesis($pub){
         // Get Start Title
         $citation = $this->apaStructureAuthors($pub['authors']);
 
@@ -569,7 +571,7 @@ trait ApaFormatterTrait {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    protected function apaFormatJournalEntry($pub){
+    public function apaFormatJournalEntry($pub){
         // Get Start Title
         $citation = $this->apaStructureAuthors($pub['authors']);
 
@@ -646,7 +648,7 @@ trait ApaFormatterTrait {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    protected function apaFormatEditorial($pub){
+    public function apaFormatEditorial($pub){
         // Get Start Title
         $citation = $this->apaStructureAuthors($pub['authors']);
 
@@ -724,7 +726,7 @@ trait ApaFormatterTrait {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    protected function apaFormatResearchBrief($pub){
+    public function apaFormatResearchBrief($pub){
         // Get Start Title
         $citation = $this->apaStructureAuthors($pub['authors']);
 
@@ -765,7 +767,7 @@ trait ApaFormatterTrait {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    protected function apaFormatVideoSeries($pub){
+    public function apaFormatVideoSeries($pub){
         // Get Start Title
         $citation = $this->apaStructureAuthors($pub['authors']);
 
@@ -826,7 +828,7 @@ trait ApaFormatterTrait {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    protected function apaFormatDefaultItem($pub){
+    public function apaFormatDefaultItem($pub){
         // Get Start Title
         $citation = $this->apaStructureAuthors($pub['authors']);
 
@@ -903,7 +905,7 @@ trait ApaFormatterTrait {
     ///////////////////////////////////////////////////////
     //////////////////////////////////////////////////////
 
-	protected function apaStructureAuthors($authors){
+	public function apaStructureAuthors($authors){
 		// Formatted according to following source
 		// https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_author_authors.html
 		// If there is no last name or first name (Editors(s) of a larger work), we will need to do a special format.
@@ -942,7 +944,7 @@ trait ApaFormatterTrait {
 	}
 
 	// TODO: split odd character , in string for Editor(s) of a Larger Work
-	protected function mergeEditors($editorsPrime, $editorsLarger){
+	public function mergeEditors($editorsPrime, $editorsLarger){
 		$roughDraft = explode(',', $editorsLarger);
 		$arr = $editorsPrime;
 
@@ -980,7 +982,7 @@ trait ApaFormatterTrait {
 	}
 
 	// Checks an array to see if items are falsey. If all items are falsey, it adds the char1. If at least on value is truthy, it adss $char2
-	protected function apaAddIfElseCharacter($arr, $char1, $char2 = ''){
+	public function apaAddIfElseCharacter($arr, $char1, $char2 = ''){
 		$none = true;
 		foreach($arr as $item){
 			if(trim($item) !== '' && $item !== null){
@@ -992,7 +994,7 @@ trait ApaFormatterTrait {
 		return ($none ? $char1 : $char2);
 	}
 
-	protected function apaGetEdition($edition, $character = ''){
+	public function apaGetEdition($edition, $character = ''){
 
 		// Adds appropriate ending after number; 1st, 2nd, 3rd..., or in some cases, nothing because the ai user already added the ending
 		if(substr($edition, -1) == '1'){
@@ -1010,13 +1012,13 @@ trait ApaFormatterTrait {
 		return ($edition != null && $edition !== '' ? ' (' . $edition . $ending . ' ed.)' . $character : '');
 	}
 
-	protected function apaGetEditors($editors){
+	public function apaGetEditors($editors){
 		// Basically set up authors and then add an 'Ed' or 'Eds' after
 		return ($this->apaStructureAuthors($editors) . (count($editors) > 1 || ( isset($editors[0]) && isset($editors[0]['last_name']) && strpos($editors[0]['last_name'], '&') !== null) ? '(Eds.)' : '(Ed.)'));
 	}
 
 	// Format for Pages
-	protected function apaGetPageNumbers($pages, $parantheses = false){
+	public function apaGetPageNumbers($pages, $parantheses = false){
 		if($pages !== '' && $pages != null){
 			$format = (strpos($pages, '-') === null ? 'p. ' : 'pp. ') . trim($pages);
 			if($parantheses){
@@ -1028,7 +1030,7 @@ trait ApaFormatterTrait {
 	}
 
 	// Format for Publishing info
-	protected function apaGetPublishing($cityState, $publisher){
+	public function apaGetPublishing($cityState, $publisher){
 		$format = ($cityState !== '' && $cityState != null ? ' ' . trim($cityState) . ':' : '');
 		$format .= ($publisher !== '' && $publisher != null ? ' ' . trim($publisher) . '.' : '');
 
@@ -1036,32 +1038,32 @@ trait ApaFormatterTrait {
 	}
 
 	// Format a review or chapter title
-	protected function apaGetSecondaryTitle($title){
+	public function apaGetSecondaryTitle($title){
 		return ($title !== '' && $title != null ? ' ' . trim($title) : '');
 	}
 
 	// Format for title
-	protected function apaGetTitle($title){
+	public function apaGetTitle($title){
 		return '<em>' . trim($title) . '</em>';
 	}
 
 	// Format for types
-	protected function apaGetType($type, $includeBrackets = true){
+	public function apaGetType($type, $includeBrackets = true){
 		return ($type !== '' && $type != null ? ($includeBrackets ? ' [' : '') . trim($type) . ($includeBrackets ? '].' : '') : '.');
 	}
 
 	// Format the most common url
-	protected function apaGetUrl($url, $includePreface = true){
+	public function apaGetUrl($url, $includePreface = true){
 		return ($url !== '' && $url != null ? ($includePreface ? ' Retrieved from ' : ' ') . '<a href="' . $url . '" target="_blank">' . $url . '</a>' : '');
 	}
 
 	// Format volume and issue numbers
-	protected function apaGetVolumeAndIssue($volume, $issue, $character = ''){
+	public function apaGetVolumeAndIssue($volume, $issue, $character = ''){
 		return (($volume != null && $volume !== '' ? ' ' . $volume : ($issue != null && $issue !== '' ? 'Unknown Volume' : '')) . ($issue != null && $issue !== '' ? '(' . $issue . ')' . $character : ($volume != null && $volume !== '' ? '(Unknown Issue)' . $character : '' )));
 	}
 
 	// Format the year
-	protected function apaGetYear($year){
+	public function apaGetYear($year){
 		return ('(' . ($year !== '' && null != $year ? trim($year) : 'Unknown Year' ) .').');
 	}
 }
