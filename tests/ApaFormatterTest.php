@@ -66,9 +66,11 @@ class ApaFormatterTest extends Orchestra\Testbench\TestCase
         $this->assertIsString($mock->apaFormatDefaultItem($pub));
 
         ////////////////////////////////////////////////////////////////
-        // Secondary Formatters
+        // Sorters
         ////////////////////////////////////////////////////////////////
-        // TODO: These are kind of already tested since every function utilizes at least one of them
-
+        // TODO
+        // mergeEditors
+        // sortForResearchGuidelines
+        // sortForAPAGuidelines
     }
 }
