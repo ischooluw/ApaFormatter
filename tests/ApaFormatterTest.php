@@ -47,7 +47,7 @@ class ApaFormatterTest extends Orchestra\Testbench\TestCase
         // Primary Formatters
         ////////////////////////////////////////////////////////////////
 
-        $mock = $this->getMockForTrait('Booellean\ApaFormatter\ApaFormatterTrait');
+        $mock = $this->getObjectForTrait(ApaFormatterTrait::class);
 
         $this->assertIsString($mock->apaFormatVideoGame($pub));
         $this->assertIsString($mock->apaFormatForeword($pub));
