@@ -981,6 +981,72 @@ trait ApaFormatterTrait {
 		return $arr;
 	}
 
+    // This function will sort Publications prior to formatting for APA
+	public function sortForAPAGuidelines($content){
+		// Sort the authors of a piece
+		foreach($content as $key=>$pub){
+			$pub['authors'] = array_filter($pub['authors'], function($val){
+				return !($val['last_name'] == '' && $val['first_name'] == '');
+			});
+			usort($pub['authors'], function($a, $b){
+				return $a['last_name'] <=> $b['last_name'];
+			});
+			// And then back to the content key
+			$content[$key] = $pub;
+		}
+
+		// Now we are going to sort the publications/research based on the first author in the array
+		// Since it's possible that two authors may have the same last name, or the exact same set of authors, sorting is a little complex
+		usort($content, function($a, $b){
+			// Recursive sorting hack O_O XP
+			return $this->nestedAuthorSort($a, $b, 0);
+		});
+
+		return $content;
+	}
+
+	// This function will sort Research Projects prior to custom formatting
+	public function sortForResearchGuidelines($content){
+		usort($content, function($a, $b){
+			$a['sort_year'] = ($a['start_date'] != false && $a['start_date'] != '' ? $a['start_date'] : $a['end_date']);
+			$b['sort_year'] = ($b['start_date'] != false && $b['start_date'] != '' ? $b['start_date'] : $b['end_date']);
+			if($a['sort_year'] === $b['sort_year']){
+				if($a['sort_year'] === $b['sort_year']){
+					return strtolower($a['title']) <=> strtolower($b['title']);
+				}
+				return $b['sort_year'] <=> $a['sort_year'];
+			}
+			return $b['sort_year'] <=> $a['sort_year'];
+		});
+
+		return $content;
+	}
+
+	// This is a recursive hack sort function designed specifically for complex sorting on publications or research grants
+	private function nestedAuthorSort($a, $b, $index = 0){
+		// If the authors are exactly the same
+		$a_authors = isset($a['authors']) ? $a['authors'] : $a['collaborators'];
+		$b_authors = isset($b['authors']) ? $b['authors'] : $b['collaborators'];
+
+		if($a_authors == $b_authors){
+			return strtolower($a['title']) <=> strtolower($b['title']);
+		}
+
+		// Else, loop through authors until the data is different
+		if($a_authors[$index] === $b_authors[$index]){
+			$index += 1;
+			return $this->nestedAuthorSort($a, $b, $index);
+		}
+
+		// And if somehow they have the same last name, sort by first name
+		if(strtolower($a_authors[$index]['last_name']) === strtolower($b_authors[$index]['last_name'])){
+			return strtolower($a_authors[$index]['first_name']) <=> strtoLower($b_authors[$index]['first_name']);
+		}
+
+		// Otherwise, sort by the standard last name
+		return strtolower($a_authors[$index]['last_name']) <=> strtolower($b_authors[$index]['last_name']);
+	}
+
 	// Checks an array to see if items are falsey. If all items are falsey, it adds the char1. If at least on value is truthy, it adss $char2
 	public function apaAddIfElseCharacter($arr, $char1, $char2 = ''){
 		$none = true;
