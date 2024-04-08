@@ -22,7 +22,8 @@ trait ApaFormatterTrait {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function apaFormatVideoGame($pub, $includeUrlPreface = true){
+    public function apaFormatVideoGame($pub, $params = []){
+        $defaultParams = array_merge(['inlcude_url_preface' => true], $params);
         // Get Start Title
         $citation = $this->apaStructureAuthors($pub['authors']);
 
@@ -40,7 +41,7 @@ trait ApaFormatterTrait {
         $citation .= $this->apaGetPublishing($pub['pub_city_state'], $pub['publisher']);
 
         // Retrieved from website_url
-        $citation .= $this->apaGetUrl($pub['url'], $includeUrlPreface);
+        $citation .= $this->apaGetUrl($pub['url'], $defaultParams['inlcude_url_preface']);
 
         return $citation;
     }
@@ -99,7 +100,8 @@ trait ApaFormatterTrait {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function apaFormatReport($pub, $includeUrlPreface = true){
+    public function apaFormatReport($pub, $params = []){
+        $defaultParams = array_merge(['inlcude_url_preface' => true], $params);
         // Get Start Title
         $citation = $this->apaStructureAuthors($pub['authors']);
 
@@ -126,7 +128,7 @@ trait ApaFormatterTrait {
 
         if($pub['url'] !== '' && $pub['url'] != false){
             // Retrieved from website_url
-            $citation .= $this->apaGetUrl($pub['url'], $includeUrlPreface);
+            $citation .= $this->apaGetUrl($pub['url'], $defaultParams['inlcude_url_preface']);
         }else{
             // Pub City, PS: Publisher.
             $citation .= $this->apaGetPublishing($pub['pub_city_state'], $pub['publisher']);
@@ -147,7 +149,8 @@ trait ApaFormatterTrait {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function apaFormatSoftware($pub, $includeUrlPreface = true){
+    public function apaFormatSoftware($pub, $params = []){
+        $defaultParams = array_merge(['inlcude_url_preface' => true], $params);
         // Get Start Title
         $citation = $this->apaStructureAuthors($pub['authors']);
 
@@ -167,7 +170,7 @@ trait ApaFormatterTrait {
         }
 
         // Retrieved from website_url
-        $citation .= $this->apaGetUrl($pub['url'], $includeUrlPreface);
+        $citation .= $this->apaGetUrl($pub['url'], $defaultParams['inlcude_url_preface']);
 
         return $citation;
     }
@@ -221,7 +224,8 @@ trait ApaFormatterTrait {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function apaFormatBookEntry($pub, $includeUrlPreface = true){
+    public function apaFormatBookEntry($pub, $params = []){
+        $defaultParams = array_merge(['inlcude_url_preface' => true], $params);
         // Get Start Title
         $citation = $this->apaStructureAuthors($pub['authors']);
 
@@ -256,7 +260,7 @@ trait ApaFormatterTrait {
         if($pub['url'] !== '' && $pub['url'] != false){
             // NOTE: we can't have a retrieved date, really =_=
             // Retrieved [Month day, year,] from website_url
-            $citation .= $this->apaGetUrl($pub['url'], $includeUrlPreface);
+            $citation .= $this->apaGetUrl($pub['url'], $defaultParams['inlcude_url_preface']);
         }else{
             if($char === ''){
 
@@ -324,7 +328,8 @@ trait ApaFormatterTrait {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function apaFormatBookChapter($pub, $includeUrlPreface = true){
+    public function apaFormatBookChapter($pub, $params = []){
+        $defaultParams = array_merge(['inlcude_url_preface' => true], $params);
         // If there are no authors, show editors
         // if(count($pub['authors']) < 1) $citation .= $this->apaGetEditors($pub['editors']);
         if(count($pub['authors']) < 1){
@@ -364,7 +369,7 @@ trait ApaFormatterTrait {
 
         if($pub['url'] !== '' && $pub['url'] != false){
             // Retrieved from website_url
-            $citation .= $this->apaGetUrl($pub['url'], $includeUrlPreface);
+            $citation .= $this->apaGetUrl($pub['url'], $defaultParams['inlcude_url_preface']);
         }else{
             // Pub City, PS: Publisher.
             $citation .= $this->apaGetPublishing($pub['pub_city_state'], $pub['publisher']);
@@ -399,7 +404,8 @@ trait ApaFormatterTrait {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function apaFormatConferencePaper($pub, $includeUrlPreface = true){
+    public function apaFormatConferencePaper($pub, $params = []){
+        $defaultParams = array_merge(['inlcude_url_preface' => true], $params);
         // Get Start Title
         $citation = $this->apaStructureAuthors($pub['authors']);
 
@@ -411,7 +417,7 @@ trait ApaFormatterTrait {
 
         if($pub['url'] !== '' && $pub['url'] != false){
             // Retrieved from website_url
-            $citation .= $this->apaGetUrl($pub['url'], $includeUrlPreface);
+            $citation .= $this->apaGetUrl($pub['url'], $defaultParams['inlcude_url_preface']);
         }else{
             // media_type
             $citation .= ' ' . $this->apaGetType($pub['type'], false);
@@ -447,7 +453,8 @@ trait ApaFormatterTrait {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function apaFormatWebProject($pub, $includeUrlPreface = false){
+    public function apaFormatWebProject($pub, $params = []){
+        $defaultParams = array_merge(['inlcude_url_preface' => false], $params);
         // Get Start Title
         $citation = $this->apaStructureAuthors($pub['authors']);
 
@@ -478,7 +485,7 @@ trait ApaFormatterTrait {
         }
 
         // website_url
-        $citation .= $this->apaGetUrl($pub['url'], $includeUrlPreface);
+        $citation .= $this->apaGetUrl($pub['url'], $defaultParams['inlcude_url_preface']);
 
         return $citation;
     }
@@ -571,7 +578,8 @@ trait ApaFormatterTrait {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function apaFormatJournalEntry($pub, $includeUrlPreface = true){
+    public function apaFormatJournalEntry($pub, $params = []){
+        $defaultParams = array_merge(['inlcude_url_preface' => true], $params);
         // Get Start Title
         $citation = $this->apaStructureAuthors($pub['authors']);
 
@@ -595,7 +603,7 @@ trait ApaFormatterTrait {
         // If this is a journal with a URL
         if(preg_match('/.*journal.*/i', $pub['type']) && ($pub['url'] !== '' && $pub['url'] != false)){
             // Retrieved from website_url
-            $citation .= '.' . $this->apaGetUrl($pub['url'], $includeUrlPreface);
+            $citation .= '.' . $this->apaGetUrl($pub['url'], $defaultParams['inlcude_url_preface']);
         }else{
             $citation .= $char;
 
@@ -628,7 +636,7 @@ trait ApaFormatterTrait {
             ], '', '.');
 
             // Retrieved from website_url
-            $citation .= $this->apaGetUrl($pub['url'], $includeUrlPreface);
+            $citation .= $this->apaGetUrl($pub['url'], $defaultParams['inlcude_url_preface']);
         }
 
         return $citation;
@@ -648,7 +656,8 @@ trait ApaFormatterTrait {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function apaFormatEditorial($pub, $includeUrlPreface = true){
+    public function apaFormatEditorial($pub, $params = []){
+        $defaultParams = array_merge(['inlcude_url_preface' => true], $params);
         // Get Start Title
         $citation = $this->apaStructureAuthors($pub['authors']);
 
@@ -681,7 +690,7 @@ trait ApaFormatterTrait {
 
         if($pub['url'] !== '' && $pub['url'] != false){
             // Retrieved from website_url
-            $citation .= $this->apaGetUrl($pub['url'], $includeUrlPreface);
+            $citation .= $this->apaGetUrl($pub['url'], $defaultParams['inlcude_url_preface']);
         }else{
             if($char === ','){
                 // volume_number(issue_number),
@@ -726,7 +735,8 @@ trait ApaFormatterTrait {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function apaFormatResearchBrief($pub, $includeUrlPreface = true){
+    public function apaFormatResearchBrief($pub, $params = []){
+        $defaultParams = array_merge(['inlcude_url_preface' => true], $params);
         // Get Start Title
         $citation = $this->apaStructureAuthors($pub['authors']);
 
@@ -748,7 +758,7 @@ trait ApaFormatterTrait {
 
         if($pub['url'] !== '' && $pub['url'] != false){
             // Retrieved from website_url
-            $citation .= $this->apaGetUrl($pub['url'], $includeUrlPreface);
+            $citation .= $this->apaGetUrl($pub['url'], $defaultParams['inlcude_url_preface']);
         }else{
             // Pub City, PS: Publisher.
             $citation .= $this->apaGetPublishing($pub['pub_city_state'], $pub['publisher']);
@@ -767,7 +777,8 @@ trait ApaFormatterTrait {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function apaFormatVideoSeries($pub, $includeUrlPreface = false){
+    public function apaFormatVideoSeries($pub, $params = []){
+        $defaultParams = array_merge(['inlcude_url_preface' => false], $params);
         // Get Start Title
         $citation = $this->apaStructureAuthors($pub['authors']);
 
@@ -786,7 +797,7 @@ trait ApaFormatterTrait {
         $citation .= ($st !== '' ? $st . '.' : '');
 
         // website_url
-        $citation .= $this->apaGetUrl($pub['url'], $includeUrlPreface);
+        $citation .= $this->apaGetUrl($pub['url'], $defaultParams['inlcude_url_preface']);
 
         return $citation;
     }
@@ -828,7 +839,8 @@ trait ApaFormatterTrait {
     //
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public function apaFormatDefaultItem($pub, $includeUrlPreface = true){
+    public function apaFormatDefaultItem($pub, $params = []){
+        $defaultParams = array_merge(['inlcude_url_preface' => true], $params);
         // Get Start Title
         $citation = $this->apaStructureAuthors($pub['authors']);
 
@@ -881,7 +893,7 @@ trait ApaFormatterTrait {
 
         if($pub['url'] !== '' && $pub['url'] != false){
             // Retrieved from website_url
-            $citation .= $this->apaGetUrl($pub['url'], $includeUrlPreface);
+            $citation .= $this->apaGetUrl($pub['url'], $defaultParams['inlcude_url_preface']);
         }else{
 
             // . or ''
