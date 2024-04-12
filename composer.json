@@ -1,6 +1,6 @@
 {
     "name": "booellean/apa-formatter",
-    "description": "A set of functions that will build a publication into an rmatted html",
+    "description": "A set of functions that will build a publication into formatted html",
     "type": "library",
     "require-dev": {
         "orchestra/testbench": "6.0"
