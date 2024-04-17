@@ -80,4 +80,4 @@ A Publication is an array passed. Not every publication will have the following 
             'year_published' => 2009,
 ```
 
-Note: Unfortunately, with our limited information, this trait does not support fields for a Publisher Platform or DOI:DOI Number
+Note: Unfortunately, with our limited information, this trait does not support fields for a Publisher Platform or DOI:DOI Number.
