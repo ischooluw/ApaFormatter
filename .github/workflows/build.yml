@@ -34,10 +34,3 @@ jobs:
 
       - name: Execute tests
         run: vendor/bin/phpunit
-
-      - name: Push to Packagist
-        uses: mnavarrocarter/packagist-update@v1.0
-        with:
-          username: ${{ secrets.PACKAGIST_USERNAME }}
-          api_token: ${{ secrets.PACKAGIST_TOKEN }}
-          package_name: booellean/apa-formatter
