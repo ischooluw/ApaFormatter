@@ -1137,7 +1137,8 @@ trait ApaFormatterTrait {
 
 	// Format volume and issue numbers
 	public function apaGetVolumeAndIssue($volume, $issue, $character = ''){
-		return (($volume != null && $volume !== '' ? ' ' . $volume : ($issue != null && $issue !== '' ? 'Unknown Volume' : '')) . ($issue != null && $issue !== '' ? '(' . $issue . ')' . $character : ($volume != null && $volume !== '' ? '(Unknown Issue)' . $character : '' )));
+		$issue = trim($issue);
+		return (($volume != null && $volume !== '' ? ' ' . $volume : ($issue != null && $issue !== '' ? 'Unknown Volume' : '')) . ($issue != null && $issue !== '' ? '(' . $issue . ')' . $character : ($volume != null && $volume !== '' ? '' . $character : '' )));
 	}
 
 	// Format the year
